@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
+using SalaoNovo.Models;
 
 namespace SalaoNovo
 {
@@ -33,6 +35,10 @@ namespace SalaoNovo
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            services.AddDbContext<SalaoNovoContext>(options =>
+                    options.UseMySql(Configuration.GetConnectionString("SalaoNovoContext"), builder =>
+                        builder.MigrationsAssembly("SalaoNovo")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
